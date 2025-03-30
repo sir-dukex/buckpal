@@ -39,4 +39,4 @@ def transfer_money(request: TransferRequest, account_repository=Depends(get_acco
     if not success:
         raise HTTPException(status_code=400, detail="Transfer failed")
 
-    return {"message": "Transfer successful"}
+    return {"success": True}

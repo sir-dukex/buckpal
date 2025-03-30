@@ -1,13 +1,13 @@
+import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 from contextlib import contextmanager
 from app.interfaces.persistence.account_repository import AccountRepository
 
-DATABASE_URL = "sqlite:///./test.db"  # For demonstration purposes
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://postgres:password@localhost:5432/buckpal")
 
-engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
+engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
 
 @contextmanager
 def get_db_session() -> Session:
@@ -23,8 +23,7 @@ def get_db_session() -> Session:
     finally:
         session.close()
 
-
-# Dependency-injected function to provide AccountRepository
+# FastAPIのDependency Injection向けの関数
 def get_account_repository():
     """
     Dependency provider for AccountRepository instances.

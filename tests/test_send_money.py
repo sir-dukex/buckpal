@@ -5,13 +5,14 @@ from decimal import Decimal
 from unittest.mock import MagicMock
 from app.domain.account import Account
 from app.use_cases.send_money import SendMoney
+from app.domain.ports.account_repository_port import AccountRepositoryPort
 
 @pytest.fixture
-def mock_account_repository():
+def mock_account_repository() -> AccountRepositoryPort:
     """
     Fixture providing a mocked AccountRepository instance.
     """
-    return MagicMock()
+    return MagicMock(spec=AccountRepositoryPort)
 
 @pytest.fixture
 def send_money_use_case(mock_account_repository):

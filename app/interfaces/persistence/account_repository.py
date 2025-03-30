@@ -3,8 +3,9 @@ from decimal import Decimal
 from sqlalchemy.orm import Session
 from app.domain.account import Account
 from app.infrastructure.db_models import AccountDBModel
+from app.domain.ports.account_repository_port import AccountRepositoryPort
 
-class AccountRepository:
+class AccountRepository(AccountRepositoryPort):
     """
     Repository class for managing persistence operations for Account entities.
 

@@ -1,7 +1,8 @@
 from decimal import Decimal
 from typing import Optional
 from app.domain.account import Account
-from app.interfaces.persistence.account_repository import AccountRepository
+# from app.interfaces.persistence.account_repository import AccountRepository
+from app.domain.ports.account_repository_port import AccountRepositoryPort
 
 
 class SendMoney:
@@ -9,10 +10,10 @@ class SendMoney:
     Use case for handling money transfers between two accounts.
 
     Attributes:
-        account_repository (AccountRepository): Repository for accessing account data.
+        account_repository (AccountRepositoryPort): Repository interface for account data.
     """
 
-    def __init__(self, account_repository: AccountRepository):
+    def __init__(self, account_repository: AccountRepositoryPort):
         self.account_repository = account_repository
 
     def execute(self, source_account_id: int, target_account_id: int, amount: Decimal) -> bool:

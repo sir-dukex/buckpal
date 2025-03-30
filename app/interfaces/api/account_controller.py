@@ -3,6 +3,7 @@ from pydantic import BaseModel
 from decimal import Decimal
 from app.use_cases.send_money import SendMoney
 from app.infrastructure.db import get_account_repository
+from app.domain.ports.account_repository_port import AccountRepositoryPort
 
 router = APIRouter()
 
@@ -14,7 +15,10 @@ class TransferRequest(BaseModel):
 
 
 @router.post("/transfer")
-def transfer_money(request: TransferRequest, account_repository=Depends(get_account_repository)):
+def transfer_money(
+    request: TransferRequest,
+    account_repository: AccountRepositoryPort = Depends(get_account_repository)
+):
     """
     API endpoint for transferring money between two accounts.
 
